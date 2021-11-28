@@ -1,0 +1,12 @@
+*{
+    font-family: "Rockwell";
+    font-size: 15px;
+}
+.card{
+    height: 60vh;
+    max-height: 500px;
+}
+img{
+    height: 50%;
+    object-fit: cover;
+}

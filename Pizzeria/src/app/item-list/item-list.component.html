@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+
+<body>
+  <div>
+    <app-login></app-login>
+    <app-registro></app-registro>
+    <div class="uno">
+      <app-header></app-header>
+    </div>
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <ngb-carousel #carousel [interval]="5000">
+          <ng-template ngbSlide *ngFor="let image of banners">
+            <div class="picsum-img-wrapper">
+              <img [src]="image" alt="Random slide">
+            </div>
+          </ng-template>
+        </ngb-carousel>
+      </div>
+      <br>
+      <div class="dos">
+        <app-header2 id="header"></app-header2>
+      </div>
+    </div>
+    <div id="promociones" class="container">
+      <h1>
+        <p class="promociones">Nuestras promociones del dia</p>
+      </h1>
+      <div class="row">
+        <div class="col-xs-1 col-md-6" *ngFor="let promocion of promociones">
+          <app-item-promocion [promocionItem]="promocion"></app-item-promocion>
+        </div>
+      </div>
+    </div>
+    <div id="pizzas" class="container">
+      <h1>
+        <p class="pizzas">Nuestas deliciosas Pizzas:</p>
+      </h1>
+      <div class="row">
+        <div class="col-xs-1 col-md-4" *ngFor="let item of items">
+          <app-item [productItem]="item"></app-item>
+        </div>
+      </div>
+    </div>
+    <div id="extras" class="container">
+      <h1>
+        <p class="extras">Extras: </p>
+      </h1>
+      <div class="row">
+        <div class="col-xs-1 col-md-4" *ngFor="let extra of extras">
+          <app-item [productItem]="extra"></app-item>
+        </div>
+      </div>
+    </div>
+    <div id="bebidas" class="container">
+      <h1>
+        <p class="bebidas">Bebidas: </p>
+      </h1>
+      <div class="row">
+        <div class="col-xs-1 col-md-4" *ngFor="let bebida of bebidas">
+          <app-item [productItem]="bebida"></app-item>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+body {
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+}
+div{
+    position: relative;
+}
+
+.uno {
+    z-index: 2
+
+}
+
+.dos {
+    z-index: 3;
+
+}
+
+.tres {
+    z-index: 1;
+
+}

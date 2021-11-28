@@ -1,0 +1,9 @@
+h1{
+    font-family: "something wild";
+    color:#161a1d ;
+    font-size: 60px;
+    text-align: center;
+}
+.sticky {
+    position: fixed;
+}
