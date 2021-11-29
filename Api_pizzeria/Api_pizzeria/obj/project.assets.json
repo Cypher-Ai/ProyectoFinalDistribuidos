@@ -193,25 +193,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Brayan\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\ASUS\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Github\\ProyectoFinalDistribuidos\\Api_pizzeria\\Api_pizzeria\\Api_pizzeria.csproj",
+      "projectUniqueName": "E:\\zprueba\\ProyectoFinalDistribuidos\\Api_pizzeria\\Api_pizzeria\\Api_pizzeria.csproj",
       "projectName": "Api_pizzeria",
-      "projectPath": "G:\\Github\\ProyectoFinalDistribuidos\\Api_pizzeria\\Api_pizzeria\\Api_pizzeria.csproj",
-      "packagesPath": "C:\\Users\\Brayan\\.nuget\\packages\\",
-      "outputPath": "G:\\Github\\ProyectoFinalDistribuidos\\Api_pizzeria\\Api_pizzeria\\obj\\",
+      "projectPath": "E:\\zprueba\\ProyectoFinalDistribuidos\\Api_pizzeria\\Api_pizzeria\\Api_pizzeria.csproj",
+      "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
+      "outputPath": "E:\\zprueba\\ProyectoFinalDistribuidos\\Api_pizzeria\\Api_pizzeria\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\Brayan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -259,7 +262,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }
