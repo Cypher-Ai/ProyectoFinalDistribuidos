@@ -1,5 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Pedido } from 'src/app/pedido.model';
+import { Usuario } from 'src/app/usuario.model';
+import { UsuarioServicio } from 'src/app/usuario.service';
 import Swal from 'sweetalert2';
 import { Persona } from '../../persona.model';
 import { PersonaServicio } from '../../persona.service';
@@ -27,11 +30,11 @@ export class RegistroComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private personaServicio: PersonaServicio
+    private personaServicio: PersonaServicio,
+    private usuarioServicio:UsuarioServicio
+
   ) {
     this.personas = personaServicio.personas;
-  }
-  ngOnInit() {
     this.formRegistro = this.fb.group(
       {
         nombres: ['', [Validators.required]],
@@ -56,6 +59,7 @@ export class RegistroComponent implements OnInit {
     );
   }
 
+  ngOnInit() {}
   //método para las validaciones respectivas
 
   get f() {
@@ -83,6 +87,7 @@ export class RegistroComponent implements OnInit {
 
   registrarPersona() {
     if (this.formRegistro.valid) {
+ 
       this.persona = new Persona(
         this.personaServicio.generarId(),
         this.nombresInput,
@@ -104,6 +109,24 @@ export class RegistroComponent implements OnInit {
         this.registroCompletado();
         //ingresamos los datos de la persona al servicio
         this.personaServicio.personas.push(this.persona);
+
+        //en esta parte se implementara el servicio
+        const usuario: Usuario={
+          Id:0,
+          Nombres: this.formRegistro.get('nombres')?.value,
+          Apellidos: this.formRegistro.get('apellidos')?.value,
+          Correo: this.formRegistro.get('correo')?.value,
+          NumeroTelefono: parseInt(this.formRegistro.get('telefono')?.value),
+          NumeroDni:parseInt( this.formRegistro.get('nroDni')?.value),
+          FechaNacimiento: this.formRegistro.get('fechaNacimiento')?.value,
+          Direccion: this.formRegistro.get('direccionInputForm')?.value,
+          Contrasenia: this.formRegistro.get('contrasenia')?.value,
+        }
+        console.log(usuario.Apellidos);
+        this.usuarioServicio.guardarUsuario(usuario).subscribe(
+          data=>{ console.log("guardado con exito")
+          }
+        );
         //limpiamos el formulario
         this.limpiarFom();
         //cerramos modal

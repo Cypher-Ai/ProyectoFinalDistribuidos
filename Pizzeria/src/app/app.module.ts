@@ -34,6 +34,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DatePipe } from '@angular/common';
 import { HistorialComponent } from './historial/historial.component';
+
+import {HttpClientModule} from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +71,8 @@ import { HistorialComponent } from './historial/historial.component';
     BrowserModule,
     FontAwesomeModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule
   ],
 
   exports: [CommonModule, FormsModule, ReactiveFormsModule],

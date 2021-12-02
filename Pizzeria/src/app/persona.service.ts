@@ -1,8 +1,21 @@
 import { Item } from './models/item';
 import { Pedido } from './pedido.model';
 import { Persona } from './persona.model';
-
+import {HttpClient } from '@angular/common/http'
+import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+ @Injectable({
+   providedIn: 'root'
+ })
 export class PersonaServicio {
+  myAppUrl='https://localhost:44383/';
+  myApiUrl='api/Usuarios/';
+
+  constructor(private http: HttpClient){}
+
+  guardarUsuario(persona: Persona): Observable<Persona>{
+    return this.http.post<Persona>(this.myAppUrl + this.myApiUrl, persona);
+  }
   usuarioLogeado!: Persona;
   logged:boolean=false;
   loggedAdmin!:boolean;
