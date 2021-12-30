@@ -12,9 +12,9 @@ namespace Api_pizzeria
         public AplicationDbContext(DbContextOptions<AplicationDbContext> options): base(options)
         {
 
-        }
-            
+        }  
         public DbSet<LogUsuario> LogUsuario { get; set; }
+        public DbSet<Administradores> Administradores { get; set; }
 
     }
     

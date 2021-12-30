@@ -1,11 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Pedido } from 'src/app/pedido.model';
 import { Usuario } from 'src/app/usuario.model';
 import { UsuarioServicio } from 'src/app/usuario.service';
 import Swal from 'sweetalert2';
-import { Persona } from '../../persona.model';
-import { PersonaServicio } from '../../persona.service';
+
 declare var jQuery: any;
 @Component({
   selector: 'app-registro',
@@ -13,28 +11,26 @@ declare var jQuery: any;
   styleUrls: ['./registro.component.css'],
 })
 export class RegistroComponent implements OnInit {
+  //variables necesarias para el formulario de registro
   titulo: string = 'Registro de datos';
   submitted: boolean = false;
-  nombresInput!: string;
-  apellidosInput!: string;
-  numeroTelefonoInput!: number;
-  numeroDniInput!: number;
-  correoInput!: string;
-  fechaNacimientoInput!: string;
-  contraseniaInput!: string;
-  confimarContraseniaInput!: string;
-  direccionInput!: string;
-  persona!: Persona;
-  personas: Persona[] = [];
   formRegistro!: FormGroup;
+  listUsuario: any[] = [];
 
+  //cuantas ya registradas
+
+
+  //para ubicar registros de correo, numeros de telefono y dni, que ya se registraron anteriormente
+
+  private listaURegistrados: Usuario[];
+  private usuario: any[];
+
+  //constructor
   constructor(
     private fb: FormBuilder,
-    private personaServicio: PersonaServicio,
-    private usuarioServicio:UsuarioServicio
-
+    private usuarioServicio: UsuarioServicio
   ) {
-    this.personas = personaServicio.personas;
+    
     this.formRegistro = this.fb.group(
       {
         nombres: ['', [Validators.required]],
@@ -59,12 +55,77 @@ export class RegistroComponent implements OnInit {
     );
   }
 
-  ngOnInit() {}
-  //método para las validaciones respectivas
+  ngOnInit() {
+    this.usuarioServicio.usuariosRegistrados();
+  }
+  //sirve para scar la lista de usuarios
 
+  //método para las validaciones respectivas
+  registrarPersona() {
+    this.usuarioServicio.usuariosRegistrados();
+    if (this.formRegistro.valid) {
+      this.listaURegistrados = Object.values(this.usuarioServicio.listaRegistrados);
+      for (let i = 0; i < this.listaURegistrados.length; i++) {
+        console.log("entro en for");
+        this.usuario = Object.values(this.usuarioServicio.listaRegistrados[i]);
+        if (this.formRegistro.get('correo')?.value=== this.usuario[5]) {
+          this.correoYaRegsitrado();
+          break;
+        } else if (parseInt(this.formRegistro.get('nroDni')?.value) === this.usuario[4]) {
+          this.nroDniYaRegistrado();
+          break;
+        } else if (parseInt(this.formRegistro.get('telefono')?.value) === this.usuario[3]) {
+          this.telefonoYaRegistrado();
+          break;
+        } else {
+          
+          //en esta parte se implementara el servicio
+          const usuario: Usuario = {
+            Id: 0,
+            Nombres: this.formRegistro.get('nombres')?.value,
+            Apellidos: this.formRegistro.get('apellidos')?.value,
+            Correo: this.formRegistro.get('correo')?.value,
+            NumeroTelefono: parseInt(this.formRegistro.get('telefono')?.value),
+            NumeroDni: parseInt(this.formRegistro.get('nroDni')?.value),
+            FechaNacimiento: this.formRegistro.get('fechaNacimiento')?.value,
+            Direccion: this.formRegistro.get('direccionInputForm')?.value,
+            Contrasenia: this.formRegistro.get('contrasenia')?.value,
+          };
+          this.usuarioServicio.guardarUsuario(usuario).subscribe((data) => {});
+          this.registroCompletado();
+          //limpiamos el formulario
+          this.limpiarFom();
+          //cerramos modal
+          this.cerrarModal();
+          break;
+        }
+      }
+    } else {
+      this.registroErrado();
+    }
+  }
   get f() {
     return this.formRegistro.controls;
   }
+
+  public control(name: string) {
+    return this.formRegistro.get(name);
+  }
+
+  //metodo para subir formulario
+  public onSubmit() {
+    this.submitted = true;
+    if (this.formRegistro.invalid) {
+      return;
+    }
+  }
+  //posiblemente ya no sirva
+  //metodo para limpiar el formulario
+  private limpiarFom() {
+    this.formRegistro.reset();
+  }
+
+  //validación mustMucht que verifica que las ingreso de contraseña correcta
   //contraseñas correctamente ingresadas
   MustMatch(contrasenia: string, confirmarContrasenia: string) {
     return (formRegistro: FormGroup) => {
@@ -81,90 +142,7 @@ export class RegistroComponent implements OnInit {
     };
   }
 
-  public control(name: string) {
-    return this.formRegistro.get(name);
-  }
-
-  registrarPersona() {
-    if (this.formRegistro.valid) {
- 
-      this.persona = new Persona(
-        this.personaServicio.generarId(),
-        this.nombresInput,
-        this.apellidosInput,
-        this.numeroTelefonoInput,
-        this.numeroDniInput,
-        this.correoInput,
-        this.fechaNacimientoInput,
-        this.direccionInput,
-        this.contraseniaInput,
-        []
-      );
-      //verificar correo
-      if (
-        !this.personaServicio.correoRegistradoAnteriormente(this.persona) &&
-        !this.personaServicio.telefonoAnteriormenteRegistrado(this.persona) &&
-        !this.personaServicio.numDniRegistradoAnteriormente(this.persona)
-      ) {
-        this.registroCompletado();
-        //ingresamos los datos de la persona al servicio
-        this.personaServicio.personas.push(this.persona);
-
-        //en esta parte se implementara el servicio
-        const usuario: Usuario={
-          Id:0,
-          Nombres: this.formRegistro.get('nombres')?.value,
-          Apellidos: this.formRegistro.get('apellidos')?.value,
-          Correo: this.formRegistro.get('correo')?.value,
-          NumeroTelefono: parseInt(this.formRegistro.get('telefono')?.value),
-          NumeroDni:parseInt( this.formRegistro.get('nroDni')?.value),
-          FechaNacimiento: this.formRegistro.get('fechaNacimiento')?.value,
-          Direccion: this.formRegistro.get('direccionInputForm')?.value,
-          Contrasenia: this.formRegistro.get('contrasenia')?.value,
-        }
-        console.log(usuario.Apellidos);
-        this.usuarioServicio.guardarUsuario(usuario).subscribe(
-          data=>{ console.log("guardado con exito")
-          }
-        );
-        //limpiamos el formulario
-        this.limpiarFom();
-        //cerramos modal
-        this.cerrarModal();
-      } else if (
-        this.personaServicio.correoRegistradoAnteriormente(this.persona)
-      ) {
-        this.correoYaRegsitrado();
-      }
-      //verificar número de telefono
-      else if (
-        this.personaServicio.telefonoAnteriormenteRegistrado(this.persona)
-      ) {
-        this.telefonoYaRegistrado();
-        //verficar número de DNI
-      } else if (
-        this.personaServicio.numDniRegistradoAnteriormente(this.persona)
-      ) {
-        this.nroDniYaRegistrado();
-      } else {
-      }
-    } else {
-      this.registroErrado();
-    }
-  }
-
-   //metodo para subir formulario
-   public onSubmit() {
-    this.submitted = true;
-    if (this.formRegistro.invalid) {
-      return;
-    }
-  }
-  //metodo para limpiar el formulario
-  private limpiarFom() {
-    this.formRegistro.reset();
-  }
-
+  //mensajes de registros completados
   private registroCompletado() {
     Swal.fire('Ya tienes cuenta!☜(ﾟヮﾟ☜)', '🤡Buen trabajo!🤡', 'success');
   }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Persona } from '../persona.model';
-import { PersonaServicio } from '../persona.service';
+import { Usuario } from '../usuario.model';
+import { UsuarioServicio } from '../usuario.service';
+
 @Component({
   selector: 'app-registro-login',
   templateUrl: './registro-login.component.html',
@@ -10,13 +11,13 @@ import { PersonaServicio } from '../persona.service';
 export class RegistroLoginComponent implements OnInit {
   
 
-  personas: Persona[] = [];
+  Usuarios:any[];
   constructor(
-    private personaServicio: PersonaServicio,
+    private usuarioServicio: UsuarioServicio,
     private router: Router
   ) {}
   ngOnInit(): void {
-    this.personas = this.personaServicio.personas;
+    this.Usuarios = this.usuarioServicio.usuarioLogeado;
   }
   login() {
     this.router.navigate(['usuario/login']);

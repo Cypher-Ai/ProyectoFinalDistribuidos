@@ -1,7 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { Persona } from 'src/app/persona.model';
-import { PersonaServicio } from 'src/app/persona.service';
+import { AdminServicio } from 'src/app/admin.service';
+import { UsuarioServicio } from 'src/app/usuario.service';
+
 
 import Swal from 'sweetalert2';
 @Component({
@@ -11,14 +12,15 @@ import Swal from 'sweetalert2';
 })
 export class HeaderComponent implements OnInit {
 
-  usuarioLogeado!: Persona;
+  usuarioLogeado:any[];
   logged!:boolean;
   loggedAdmin!:boolean;
   cartTotal = 0;
 
   @Output() toggleSideBarForMe: EventEmitter<any> = new EventEmitter();
 
-  constructor(private personaServicio: PersonaServicio, private router:Router) { }
+  constructor(private usuarioServicio: UsuarioServicio, 
+    private adminServicio:AdminServicio, private router:Router) { }
 
   ngOnInit() { }
 
@@ -34,8 +36,8 @@ export class HeaderComponent implements OnInit {
   logOut(){
     this.logged=false;
     this.loggedAdmin=false;
-    this.personaServicio.loggedAdmin=false;
-    this.personaServicio.logged=false;
+    this.adminServicio.seLogeoAdmin=false;
+    this.usuarioServicio.seLogeoUsuario=false;
 
    Swal.fire(
       '	(っ˘̩╭╮˘̩)っ \nCerraste Sesión',

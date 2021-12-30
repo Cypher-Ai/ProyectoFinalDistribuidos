@@ -28,7 +28,7 @@ namespace Api_pizzeria.Controllers
             return await _context.LogUsuario.ToListAsync();
         }
 
-        // GET: api/LogUsuarios/5
+        // GET: api/LogUsuarios/id
         [HttpGet("{id}")]
         public async Task<ActionResult<LogUsuario>> GetLogUsuario(int id)
         {
@@ -42,8 +42,8 @@ namespace Api_pizzeria.Controllers
             return logUsuario;
         }
 
-        // PUT: api/LogUsuarios/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: api/LogUsuarios/id
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLogUsuario(int id, LogUsuario logUsuario)
         {
@@ -74,7 +74,6 @@ namespace Api_pizzeria.Controllers
         }
 
         // POST: api/LogUsuarios
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<LogUsuario>> PostLogUsuario(LogUsuario logUsuario)
         {
@@ -106,3 +105,4 @@ namespace Api_pizzeria.Controllers
         }
     }
 }
+    

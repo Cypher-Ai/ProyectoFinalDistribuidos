@@ -4,9 +4,9 @@ import { CartItem } from '../models/cart-item';
 import { DashboardService } from '../modules/dashboard.service';
 import { DatePipe } from '@angular/common';
 import { PedidoData } from '../models/pedido-data';
-import { Persona } from '../persona.model';
-import { PersonaServicio } from '../persona.service';
+
 import Swal from 'sweetalert2';
+import { UsuarioServicio } from '../usuario.service';
 
 
 @Component({
@@ -19,19 +19,15 @@ export class CartComponent implements OnInit {
   cartItems_historial: any[]=[];
 
   id!: number;
-    // Ejemplos con los que se puede llenar la lista
-    // { id: 1, nombre: 'Pizza 1', detalles: '', precio: 0, cantidad: 1, imgUrl: '' },
-    // { id:2, nombre:"Pizza 2", detalles:"", precio:10, cantidad:2, imgUrl:"" },
-    // { id:3, nombre:"Pizza 3", detalles:"", precio:15, cantidad:1, imgUrl:"" },
-    // { id:4, nombre:"Pizza 4", detalles:"", precio:20, cantidad:1, imgUrl:"" }
+  usuarioLogeado:any[];
   cartTotal = 0;
-  usuarioLogeado!: Persona;
+  //usuarioLogeado!: Persona;
   logged!:boolean;
   
   constructor(private msj: CartService,
               private dashboardService: DashboardService,
               private datePipe: DatePipe,
-              private personaServicio: PersonaServicio,
+              private usuarioServicio: UsuarioServicio,
       ) { }
   ngOnInit(): void {
     console.log("xd?")
@@ -52,8 +48,8 @@ export class CartComponent implements OnInit {
       
     );*/
     this.id=this.dashboardService.idPorEntregar;
-    this.usuarioLogeado=this.personaServicio.usuarioLogeado;
-    this.logged=this.personaServicio.logged;
+    this.usuarioLogeado=this.usuarioServicio.usuarioLogeado;
+    this.logged=this.usuarioServicio.seLogeoUsuario;
     //Se limpian los elementos del carrito si es que el usuario no está logueado
     if(this.logged == false){
       this.vaciarCarrito();
@@ -133,13 +129,13 @@ export class CartComponent implements OnInit {
 
   enviarLista(){
     if (this.cartItems.length != 0){
-      // tslint:disable-next-line: forin
+      //tslint:disable-next-line: forin
       
       this.msj.enviarDatos_shoppingcart(this.cartItems);
       let fecha=new Date();
       let newFecha=this.datePipe.transform(fecha, 'dd-MM-yyyy');
       let hora=this.datePipe.transform(fecha, 'shortTime');
-      let direccion=this.personaServicio.usuarioLogeado.direccion;
+      let direccion=this.usuarioServicio.usuarioLogeado[5];
       this.id=this.dashboardService.idPorEntregar;
       this.dashboardService.idPorEntregar+=1;
       this.cartTotal=Number(this.cartTotal.toFixed(2));

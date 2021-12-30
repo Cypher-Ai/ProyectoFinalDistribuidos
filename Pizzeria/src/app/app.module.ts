@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { ItemComponent } from './item/item.component';
-import { MainComponent } from './main/main.component';
+
 
 import { HeaderComponent } from './header/header.component';
 import { Header2Component } from './header2/header2.component';
@@ -21,7 +21,7 @@ import { RegistroComponent } from './registro-login/registro/registro.component'
 import { RegistroLoginComponent } from './registro-login/registro-login.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PersonaServicio } from './persona.service';
+
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -33,18 +33,17 @@ import { AccountInfoComponent } from './account-info/account-info.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DatePipe } from '@angular/common';
-import { HistorialComponent } from './historial/historial.component';
 
 import {HttpClientModule} from '@angular/common/http';
+import { UsuarioServicio } from './usuario.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ItemComponent,
-    MainComponent,
+  
     HeaderComponent,
+    ItemComponent,
     Header2Component,
-    MainComponent,
     ItemListComponent,
     FooterComponent,
     ItemPromocionComponent,
@@ -57,7 +56,7 @@ import {HttpClientModule} from '@angular/common/http';
     RegistroLoginComponent,
     RegistroComponent,
     CartItemComponent,
-    HistorialComponent
+ 
   ],
   imports: [
     CommonModule,
@@ -76,7 +75,7 @@ import {HttpClientModule} from '@angular/common/http';
   ],
 
   exports: [CommonModule, FormsModule, ReactiveFormsModule],
-  providers: [PersonaServicio, DatePipe],
+  providers: [UsuarioServicio, DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

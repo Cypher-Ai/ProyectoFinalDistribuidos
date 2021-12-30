@@ -7,12 +7,21 @@ import { Usuario } from "./usuario.model";
     providedIn: 'root'
   })
  export class UsuarioServicio {
-   myAppUrl='https://localhost:44305/';
-   myApiUrl='api/LogUsuarios/';
-   list: Usuario[];
+   private myAppUrl='https://localhost:44305/';
+   private myApiUrl='api/LogUsuarios/';
+   public seLogeoUsuario!:boolean;
    constructor(private http: HttpClient){}
-   
+   public listaRegistrados: Usuario[];
+   public usuarioLogeado:any[];
    guardarUsuario(usuario: Usuario): Observable<Usuario>{
      return this.http.post<Usuario>(this.myAppUrl+this.myApiUrl, usuario)
    }
+   usuariosRegistrados(){
+     this.http.get(this.myAppUrl+this.myApiUrl).toPromise().then(
+       data=>{
+         this.listaRegistrados= data as Usuario[]; 
+       }
+     )
+   }
 }
+  

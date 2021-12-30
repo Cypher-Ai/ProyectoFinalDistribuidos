@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Persona } from '../persona.model';
-import { PersonaServicio } from '../persona.service';
+
 import { CartService } from '../cart-item/cart.service';
 import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
+import { UsuarioServicio } from '../usuario.service';
+import { AdminServicio } from '../admin.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  usuarioLogeado!: Persona;
+  usuarioLogeado: any[];
   logged!:boolean;
   loggedAdmin!:boolean;
 
@@ -21,27 +22,24 @@ export class HeaderComponent implements OnInit {
   cartTotal: number = this.receiveTotal();
 
 
-  constructor(private msj: CartService, private personaServicio: PersonaServicio, private router: Router) { }
+  constructor(private msj: CartService, private usuarioServicio: UsuarioServicio, private router: Router,
+    private adminServicio: AdminServicio) { }
 
   ngOnInit(): void {
-    this.usuarioLogeado=this.personaServicio.usuarioLogeado;
-    this.logged=this.personaServicio.logged;
-    this.loggedAdmin=this.personaServicio.loggedAdmin;
+
+    this.usuarioLogeado = this.usuarioServicio.usuarioLogeado;
+    this.logged=this.usuarioServicio.seLogeoUsuario;
+    this.loggedAdmin=this.adminServicio.seLogeoAdmin;
     console.log(this.logged);
     
-    console.log("-->xd?")
+  
     this.msj.sendSignal();
-
-    
-    
-
-
   }
   logOut(){
     this.logged=false;
     this.loggedAdmin=false;
-    this.personaServicio.loggedAdmin=false;
-    this.personaServicio.logged=false;
+    this.adminServicio.seLogeoAdmin=false;
+    this.usuarioServicio.seLogeoUsuario=false;
     //Se envía la señal para eliminar la lista que hay dentro del carrito
     this.msj.enviarDatos_Eliminarlista();
 
