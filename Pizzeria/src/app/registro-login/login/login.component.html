@@ -34,7 +34,7 @@
                         </svg>
                       </span>
                       <input type="email" name="correo" class="form-control" id="correo" placeholder="Correo"
-                        [(ngModel)]="correoLoginInput" formControlName="correo">
+                       formControlName="correo">
                     </div>
                     <div class="err" *ngIf="submitted && f.correo.errors">
                       <div *ngIf="f.correo.errors.required">
@@ -59,7 +59,7 @@
                         </svg>
                       </span>
                       <input type="password" name="contrasenia" class="form-control" id="contrasenia"
-                        placeholder="Contraseña" [(ngModel)]="contraseniaLoginInput" formControlName="contrasenia">
+                        placeholder="Contraseña" formControlName="contrasenia">
                     </div>
                     <div class="err" *ngIf="submitted && f.contrasenia.errors">
                       <div *ngIf="f.contrasenia.errors.required">
@@ -88,9 +88,6 @@
         <button class="btn btn-link" data-bs-target="#registroDatosCliente" data-bs-toggle="modal"
           data-bs-dismiss="modal">Registrate</button>
         <p>y se parte de esta hermosa familia de 🤡 </p>
-
-
-
       </div>
     </div>
   </div>

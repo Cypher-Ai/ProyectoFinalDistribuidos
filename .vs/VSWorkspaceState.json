@@ -2,7 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\Api_pizzeria",
-    "\\Api_pizzeria\\Api_pizzeria"
+    "\\Api_pizzeria\\Api_pizzeria",
+    "\\Api_pizzeria\\Api_pizzeria\\Controllers",
+    "\\Api_pizzeria\\Api_pizzeria\\dto",
+    "\\Api_pizzeria\\Api_pizzeria\\Models"
   ],
+  "SelectedNode": "\\Api_pizzeria\\Api_pizzeria.sln",
   "PreviewInSolutionExplorer": false
 }

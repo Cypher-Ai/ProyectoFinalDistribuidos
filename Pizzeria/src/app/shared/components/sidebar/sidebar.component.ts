@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { Persona } from 'src/app/persona.model';
-import { PersonaServicio } from 'src/app/persona.service';
+import { AdminServicio } from 'src/app/admin.service';
+import { UsuarioServicio } from 'src/app/usuario.service';
+
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  usuarioLogeado!: Persona;
-  constructor(private personaServicio: PersonaServicio) { }
+  adminLogeado:any[];
+  constructor(private adminServicio: AdminServicio) { }
 
   ngOnInit() {
-    this.usuarioLogeado=this.personaServicio.usuarioLogeado;
+    this.adminLogeado=this.adminServicio.adminLogeado;
   }
 
 }

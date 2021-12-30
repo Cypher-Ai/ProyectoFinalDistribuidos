@@ -31,7 +31,7 @@ export class ItemService {
     [45.50,53],["Grande","Familiar"],"https://i.pinimg.com/originals/24/d0/d1/24d0d1170041a54d790b06108a1039c2.jpg"),
     
     new Item(8,"Pizza Siciliana","¡Las mejores carnes embutidas en una sola Pizza! Hecha para los amantes del Salame, Chorizo, Salchicha Italiana y Pepperoni. Junto a nuestro exiquisito Queso Mozzarella hacen de esta pizza una verdadera delicia.",
-    [45.50,53],["Grande","Familiar"],"https://www.vanidades.com/wp-content/uploads/2018/06/Pizza-siciliana-de-kamut.jpg")
+    [45.50,53],["Grande","Familiar"],"https://gdsit.cdn-immedia.net/2014/10/Pizza-625x350.jpg")
   ]
 
   promociones: Item[]=[

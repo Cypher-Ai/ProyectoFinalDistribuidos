@@ -6,9 +6,10 @@ import { CartService } from '../cart-item/cart.service';
 import { CartItem } from '../models/cart-item';
 //Texto de alerta
 import Swal from 'sweetalert2';
-import { PersonaServicio } from '../persona.service';
+//import { PersonaServicio } from '../persona.service';
 import { Router } from '@angular/router';
-import { Persona } from '../persona.model';
+import { UsuarioServicio } from '../usuario.service';
+//import { Persona } from '../persona.model';
 
 
 @Component({
@@ -26,19 +27,20 @@ export class ItemPromocionComponent implements OnInit{
 
   Seleccionado: string = 'Seleccione un tipo';
   verSeleccion: string = '';
+  usuarioLogeado:any[];
 
   indice!: number;
   
-  constructor(private msj: CartService, private personaServicio: PersonaServicio, private router: Router){
+  constructor(private msj: CartService, private usuarioServicio: UsuarioServicio, private router: Router){
   }
-  usuarioLogeado!: Persona;
+
   logged!:boolean;
   
 
   // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit(): void {
-    this.usuarioLogeado=this.personaServicio.usuarioLogeado;
-    this.logged=this.personaServicio.logged;
+    this.usuarioLogeado=this.usuarioServicio.usuarioLogeado;
+    this.logged=this.usuarioServicio.seLogeoUsuario;
     
     console.log(this.logged); 
   }

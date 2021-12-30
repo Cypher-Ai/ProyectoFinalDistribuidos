@@ -10,8 +10,7 @@ export class Pedido {
   ) {}
   getTotal(){
     let total:number=0;
-    this.listaCarritoCompra.forEach(Item => {
-      
+    this.listaCarritoCompra.forEach(Item => { 
     });
   }
 }
