@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\zprueba\\ProyectoFinalDistribuidos\\Api_pizzeria\\Api_pizzeria\\Api_pizzeria.csproj": {}
+    "G:\\Github\\ProyectoFinalDistribuidos\\Api_pizzeria\\Api_pizzeria\\Api_pizzeria.csproj": {}
   },
   "projects": {
-    "E:\\zprueba\\ProyectoFinalDistribuidos\\Api_pizzeria\\Api_pizzeria\\Api_pizzeria.csproj": {
+    "G:\\Github\\ProyectoFinalDistribuidos\\Api_pizzeria\\Api_pizzeria\\Api_pizzeria.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\zprueba\\ProyectoFinalDistribuidos\\Api_pizzeria\\Api_pizzeria\\Api_pizzeria.csproj",
+        "projectUniqueName": "G:\\Github\\ProyectoFinalDistribuidos\\Api_pizzeria\\Api_pizzeria\\Api_pizzeria.csproj",
         "projectName": "Api_pizzeria",
-        "projectPath": "E:\\zprueba\\ProyectoFinalDistribuidos\\Api_pizzeria\\Api_pizzeria\\Api_pizzeria.csproj",
-        "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "E:\\zprueba\\ProyectoFinalDistribuidos\\Api_pizzeria\\Api_pizzeria\\obj\\",
+        "projectPath": "G:\\Github\\ProyectoFinalDistribuidos\\Api_pizzeria\\Api_pizzeria\\Api_pizzeria.csproj",
+        "packagesPath": "C:\\Users\\Brayan\\.nuget\\packages\\",
+        "outputPath": "G:\\Github\\ProyectoFinalDistribuidos\\Api_pizzeria\\Api_pizzeria\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Brayan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"

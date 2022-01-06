@@ -3,14 +3,16 @@ using Api_pizzeria;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Api_pizzeria.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    partial class AplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220106201635_tarjeta2")]
+    partial class tarjeta2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,27 +55,23 @@ namespace Api_pizzeria.Migrations
                     b.ToTable("Administradores");
                 });
 
-            modelBuilder.Entity("Api_pizzeria.Models.HistorialVenta", b =>
+            modelBuilder.Entity("Api_pizzeria.Models.Historial", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Direccion")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
                     b.Property<string>("Fecha")
                         .IsRequired()
-                        .HasColumnType("varchar(14)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Hora")
                         .IsRequired()
-                        .HasColumnType("varchar(14)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Total")
-                        .HasColumnType("real");
+                    b.Property<int>("Total")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

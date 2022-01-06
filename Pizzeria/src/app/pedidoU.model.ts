@@ -7,4 +7,5 @@ export class PedidoU {
     public fechaPedido: string;
     public horaPedido: string;
     public numeroDeCliente: number;
+    public dirección: string;
 }

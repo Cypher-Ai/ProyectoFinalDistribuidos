@@ -1,6 +1,6 @@
 import { Inject } from '@angular/core';
 export class PedidoData {
-  id: number = 0;
+  id ?: number = 0;
   total: number = 0;
   fecha: string = '';
   hora: string = '';
