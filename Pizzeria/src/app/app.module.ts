@@ -36,6 +36,10 @@ import { DatePipe } from '@angular/common';
 
 import {HttpClientModule} from '@angular/common/http';
 import { UsuarioServicio } from './usuario.service';
+import { TarjetasComponent } from './componentes/tarjetas/tarjetas.component';
+import { TarjetaCreditoComponent } from './componentes/tarjetas/tarjeta-credito/tarjeta-credito.component';
+
+
 
 @NgModule({
   declarations: [
@@ -56,6 +60,9 @@ import { UsuarioServicio } from './usuario.service';
     RegistroLoginComponent,
     RegistroComponent,
     CartItemComponent,
+    TarjetasComponent,
+    TarjetaCreditoComponent,
+    
  
   ],
   imports: [

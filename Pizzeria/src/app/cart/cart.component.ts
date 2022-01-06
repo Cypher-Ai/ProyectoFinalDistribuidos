@@ -7,6 +7,7 @@ import { PedidoData } from '../models/pedido-data';
 
 import Swal from 'sweetalert2';
 import { UsuarioServicio } from '../usuario.service';
+import { HistorialVentaService } from '../historial-venta.service';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class CartComponent implements OnInit {
   constructor(private msj: CartService,
               private dashboardService: DashboardService,
               private datePipe: DatePipe,
-              private usuarioServicio: UsuarioServicio,
+              private usuarioServicio: UsuarioServicio,private historialVentaService:  HistorialVentaService
       ) { }
   ngOnInit(): void {
     console.log("xd?")
@@ -135,13 +136,25 @@ export class CartComponent implements OnInit {
       let fecha=new Date();
       let newFecha=this.datePipe.transform(fecha, 'dd-MM-yyyy');
       let hora=this.datePipe.transform(fecha, 'shortTime');
-      let direccion=this.usuarioServicio.usuarioLogeado[5];
+      let direccion=this.usuarioServicio.usuarioLogeado[7];
       this.id=this.dashboardService.idPorEntregar;
       this.dashboardService.idPorEntregar+=1;
       this.cartTotal=Number(this.cartTotal.toFixed(2));
       if(newFecha != null && hora!=null){
-        let pedidoData=new PedidoData(this.id,this.cartTotal,newFecha.toString(),hora.toString(),direccion);
+        const pedidoData=new PedidoData(0,this.cartTotal,newFecha.toString(),hora.toString(),direccion.toString());
         this.dashboardService.lstPedidos.unshift(pedidoData);
+
+        console.log(Object.values(pedidoData));
+        this.historialVentaService.guardarPedido(pedidoData).subscribe(data =>{
+          console.log("pedido con exito");
+      
+      
+
+    });
+
+
+
+
         console.log("Mensaje enviado "+pedidoData.total);
       }else{
         console.log("xdn't")

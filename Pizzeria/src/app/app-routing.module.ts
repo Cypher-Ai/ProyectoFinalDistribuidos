@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AccountInfoComponent } from './account-info/account-info.component';
 import { CartComponent } from './cart/cart.component';
+import { TarjetasComponent } from './componentes/tarjetas/tarjetas.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { DefaultComponent } from './layouts/default/default.component';
 import { LocalesComponent } from './locales/locales.component';
@@ -51,6 +52,10 @@ const routes: Routes = [
   {
     path: 'mision',
     component: MisionComponent
+  },
+  {
+    path:'tarjetas' ,
+    component: TarjetasComponent
   }
 ];
 @NgModule({
