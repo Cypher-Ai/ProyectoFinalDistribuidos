@@ -8,7 +8,7 @@ import { CartItem } from '../models/cart-item';
 import Swal from 'sweetalert2';
 //import { PersonaServicio } from '../persona.service';
 import { Router } from '@angular/router';
-import { UsuarioServicio } from '../usuario.service';
+import { UsuarioServicio } from '../servicios/usuario.service';
 //import { Persona } from '../persona.model';
 
 

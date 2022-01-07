@@ -1,4 +1,4 @@
-import { Pedido } from './pedido.model';
+
 
 export class Usuario {   
         public Id: number;

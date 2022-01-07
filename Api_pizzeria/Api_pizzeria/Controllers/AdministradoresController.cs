@@ -22,6 +22,7 @@ namespace Api_pizzeria.Controllers
         public AdministradoresController(AplicationDbContext context)
         {
             _context = context;
+            
         }
 
         // GET: api/Administradores
@@ -30,7 +31,26 @@ namespace Api_pizzeria.Controllers
         {
             return await _context.Administradores.ToListAsync();
         }
+        
+        [HttpGet("login/{correo}/{contrasenia?}")]
+        public async Task<ActionResult<Administradores>> GetLogUsuario(string correo, string contrasenia)
+        {
+            var administrador = await _context.Administradores.FirstOrDefaultAsync(x => x.Correo.Equals(correo));
 
+            if (administrador == null)
+
+                return NotFound();
+
+            else if (administrador.Contrasenia == contrasenia)
+            {
+                return administrador;
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+        }
         // GET: api/Administradores/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Administradores>> GetAdministradores(int id)
@@ -88,6 +108,7 @@ namespace Api_pizzeria.Controllers
         }
 
         // DELETE: api/Administradores/5
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAdministradores(int id)
         {
@@ -106,5 +127,60 @@ namespace Api_pizzeria.Controllers
         {
             return _context.Administradores.Any(e => e.Id == id);
         }
+
+    
     }
+
 }
+
+/*
+     [AllowAnonymous]
+     [HttpPost("auth")]
+     public async Task<ActionResult<RespuestaAutentificacion>> Login (CredencialAdmin credencialAdmin)
+     {
+
+         var resultado = true;
+         /*
+         var administrador = await context.Administradores.FirstOrDefaultAsync(x => x.Correo.Equals(credencialAdmin.Correo));
+         if (administrador==null)
+         {
+             resultado = false;
+         }
+         else if (administrador.Contrasenia == credencialAdmin.Contrasenia)
+         {
+             resultado = true;
+         }
+
+
+         if (resultado)
+         {
+             return ConstruirToken(credencialAdmin);
+         }
+         else
+         {
+             return BadRequest("Login incorrecto");
+         }
+
+     }
+
+     private RespuestaAutentificacion ConstruirToken(CredencialAdmin credencialAdmin)
+     {
+         var claims = new List<Claim>()
+         {
+             new Claim("Correo", credencialAdmin.Correo)
+         };
+
+         var llave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["llavejwt"]));
+         var creds = new SigningCredentials(llave, SecurityAlgorithms.HmacSha256);
+         var expiracion = DateTime.UtcNow.AddDays(1);
+
+         var securityToken = new JwtSecurityToken(issuer: null, audience: null,claims: claims,
+             expires: expiracion, signingCredentials: creds);
+
+         return new RespuestaAutentificacion()
+         {
+             Token = new JwtSecurityTokenHandler().WriteToken(securityToken),
+             Expiracion = expiracion
+         };
+     }
+      */

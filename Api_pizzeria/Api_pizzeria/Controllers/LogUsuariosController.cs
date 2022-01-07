@@ -10,7 +10,7 @@ using Api_pizzeria.Models;
 
 namespace Api_pizzeria.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/LogUsuarios")]
     [ApiController]
     public class LogUsuariosController : ControllerBase
     {
@@ -29,6 +29,30 @@ namespace Api_pizzeria.Controllers
         }
 
         // GET: api/LogUsuarios/id
+     
+        [HttpGet("login/{correo}/{contrasenia?}")]
+        public async Task<ActionResult<LogUsuario>> GetLogUsuario(string correo, string contrasenia)
+        {
+            var logUsuario = await _context.LogUsuario.FirstOrDefaultAsync(x=>x.Correo.Equals(correo));
+
+            if (logUsuario == null)
+
+                return NotFound();
+
+            else if(logUsuario.Contrasenia==contrasenia)
+            {
+              
+                return logUsuario;
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+          
+        }
+
+
         [HttpGet("{id}")]
         public async Task<ActionResult<LogUsuario>> GetLogUsuario(int id)
         {

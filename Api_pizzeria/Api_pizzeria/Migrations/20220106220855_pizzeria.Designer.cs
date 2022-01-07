@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api_pizzeria.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    [Migration("20220106201635_tarjeta2")]
-    partial class tarjeta2
+    [Migration("20220106220855_pizzeria")]
+    partial class pizzeria
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,23 +55,27 @@ namespace Api_pizzeria.Migrations
                     b.ToTable("Administradores");
                 });
 
-            modelBuilder.Entity("Api_pizzeria.Models.Historial", b =>
+            modelBuilder.Entity("Api_pizzeria.Models.HistorialVenta", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Direccion")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
                     b.Property<string>("Fecha")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(14)");
 
                     b.Property<string>("Hora")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(14)");
 
-                    b.Property<int>("Total")
-                        .HasColumnType("int");
+                    b.Property<float>("Total")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 

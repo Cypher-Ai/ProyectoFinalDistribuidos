@@ -16,7 +16,6 @@ namespace Api_pizzeria.Models
         [Required]
         public float Total { get; set; }
 
-
         [Required]
         [Column(TypeName = "varchar(14)")]
         public string Fecha { get; set; }

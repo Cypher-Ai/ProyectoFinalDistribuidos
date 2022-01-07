@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DefaultModule } from './layouts/default/default.module';
-import { CartComponent } from './cart/cart.component';
+
 import { CartItemComponent } from './cart-item/cart-item.component'
 
 import { AccountInfoComponent } from './account-info/account-info.component';
@@ -35,16 +35,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 
 import {HttpClientModule} from '@angular/common/http';
-import { UsuarioServicio } from './usuario.service';
+
 import { TarjetasComponent } from './componentes/tarjetas/tarjetas.component';
 import { TarjetaCreditoComponent } from './componentes/tarjetas/tarjeta-credito/tarjeta-credito.component';
+import { UsuarioServicio } from './servicios/usuario.service';
+import { CartComponent } from './cart/cart.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-  
     HeaderComponent,
     ItemComponent,
     Header2Component,

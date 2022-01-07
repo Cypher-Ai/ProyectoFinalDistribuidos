@@ -3,7 +3,7 @@ import { DashboardService } from '../dashboard.service';
 import { MatTableDataSource} from '@angular/material/table';
 import { MatPaginator} from '@angular/material/paginator';
 
-import { Pedido } from 'src/app/pedido.model';
+import { Pedido } from 'src/app/modelos/pedido.model';
 
 import { PedidoData } from 'src/app/models/pedido-data';
 
@@ -25,15 +25,15 @@ export class DashboardComponent implements OnInit {
   dataSource = new MatTableDataSource<PedidoData>(this.ELEMENT_DATA);
   dataSource2 = new MatTableDataSource<PedidoData>(this.ELEMENT_DATA2);
 
+
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
-
-  constructor(private dashboardService: DashboardService /*,private personaService: PersonaServicio*/) { }
-
+  constructor(private dashboardService: DashboardService) { }
   ngOnInit() {
-    //this.data=this.personaService.getListaPedidos(0);
+ 
     this.bigChart = this.dashboardService.bigChart();
     this.cards = this.dashboardService.cards();
     this.dataSource.paginator = this.paginator;
+    
   }
   
 }

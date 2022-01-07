@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CartService } from "../cart-item/cart.service";
-import { UsuarioServicio } from "../usuario.service";
+import { UsuarioServicio } from "../servicios/usuario.service";
 
 @Component({
   selector: 'app-account-info',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminServicio } from 'src/app/admin.service';
-import { UsuarioServicio } from 'src/app/usuario.service';
+import { AdminServicio } from 'src/app/servicios/admin.service';
+import { UsuarioServicio } from 'src/app/servicios/usuario.service';
 
 
 @Component({

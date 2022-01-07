@@ -38,7 +38,7 @@ export class ItemService {
     new Item(0,"Las picositas","Lleva cualquiera de nuestras tres pizzas insignias con un increíble descuento, no te puedes perder de esta oferta para chuparse los dedos!!!!(Solo pizzas familiares)",
     [33.99,30.99,30.99],["Hawaiana Light","Peperoni","Vegetariana"],"../../assets/Las picositas.jpg"),
 
-    new Item(1,"La segunda vuelta","Una coyuntura culinaria sin precedentes se libra en la cocina, depende de ti quien podrá ganar estas elecciones para representar a nuestra Pizza líder, no esperes para emitir tu voto!!!",
+    new Item(1,"La segunda vuelta","Una coyuntura culinaria sin precedentes se libra en la cocina, depende de ti quien podrá ganar estas elecciones para representar a nuestra Pizza líder",
     [34.99,34.99],["La Roja Suprema","La Carcelera"],"../../assets/La seguna vuelta.jpg")
   ]
 

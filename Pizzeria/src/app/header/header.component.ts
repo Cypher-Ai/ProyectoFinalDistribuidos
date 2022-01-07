@@ -4,8 +4,8 @@ import { CartService } from '../cart-item/cart.service';
 import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
-import { UsuarioServicio } from '../usuario.service';
-import { AdminServicio } from '../admin.service';
+import { UsuarioServicio } from '../servicios/usuario.service';
+import { AdminServicio } from '../servicios/admin.service';
 
 
 @Component({

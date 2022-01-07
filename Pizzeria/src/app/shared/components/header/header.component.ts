@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdminServicio } from 'src/app/admin.service';
-import { UsuarioServicio } from 'src/app/usuario.service';
+import { AdminServicio } from 'src/app/servicios/admin.service';
+import { UsuarioServicio } from 'src/app/servicios/usuario.service';
 
 
 import Swal from 'sweetalert2';

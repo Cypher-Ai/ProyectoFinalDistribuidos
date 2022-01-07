@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Usuario } from 'src/app/usuario.model';
-import { UsuarioServicio } from 'src/app/usuario.service';
+import { Usuario } from 'src/app/modelos/usuario.model';
+import { UsuarioServicio } from 'src/app/servicios/usuario.service';
+
+
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -16,12 +18,8 @@ export class RegistroComponent implements OnInit {
   submitted: boolean = false;
   formRegistro!: FormGroup;
   listUsuario: any[] = [];
-
   //cuantas ya registradas
-
-
   //para ubicar registros de correo, numeros de telefono y dni, que ya se registraron anteriormente
-
   private listaURegistrados: Usuario[];
   private usuario: any[];
 
@@ -58,11 +56,9 @@ export class RegistroComponent implements OnInit {
   ngOnInit() {
     this.usuarioServicio.usuariosRegistrados();
   }
-  //sirve para scar la lista de usuarios
-
-  //método para las validaciones respectivas
   registrarPersona() {
     this.usuarioServicio.usuariosRegistrados();
+
     if (this.formRegistro.valid) {
       this.listaURegistrados = Object.values(this.usuarioServicio.listaRegistrados);
       for (let i = 0; i < this.listaURegistrados.length; i++) {

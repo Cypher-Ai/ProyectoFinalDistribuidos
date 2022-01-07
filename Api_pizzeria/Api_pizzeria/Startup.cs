@@ -38,11 +38,9 @@ namespace Api_pizzeria
                      ValidateLifetime = true,
                      ValidateIssuerSigningKey = true,
                      IssuerSigningKey = new SymmetricSecurityKey(
-                       Encoding.UTF8.GetBytes(Configuration["llavejwt"])),
+                     Encoding.UTF8.GetBytes(Configuration["llavejwt"])),
                      ClockSkew = TimeSpan.Zero
                  });
-
-
 
             services.AddDbContext<AplicationDbContext>(options => options.UseSqlServer
             (Configuration.GetConnectionString("DevConnection")));
@@ -51,7 +49,6 @@ namespace Api_pizzeria
             services.AddCors(options => options.AddPolicy("AllowWebApp",
                 builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
             services.AddControllers();
-
 
             services.AddSwaggerGen(c =>
             {
@@ -79,16 +76,7 @@ namespace Api_pizzeria
                     }
                 });
             });
-
-
-
-
         }
-
-
-
-
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

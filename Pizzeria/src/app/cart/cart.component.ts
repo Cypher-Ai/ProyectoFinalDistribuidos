@@ -6,10 +6,12 @@ import { DatePipe } from '@angular/common';
 import { PedidoData } from '../models/pedido-data';
 
 import Swal from 'sweetalert2';
-import { UsuarioServicio } from '../usuario.service';
+
 import { HistorialVentaService } from '../historial-venta.service';
+import { UsuarioServicio } from '../servicios/usuario.service';
+import { Router } from '@angular/router';
 
-
+declare var jQuery: any;
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -22,32 +24,26 @@ export class CartComponent implements OnInit {
   id!: number;
   usuarioLogeado:any[];
   cartTotal = 0;
-  //usuarioLogeado!: Persona;
+
   logged!:boolean;
+  lstPedidos: PedidoData[];
   
   constructor(private msj: CartService,
               private dashboardService: DashboardService,
               private datePipe: DatePipe,
-              private usuarioServicio: UsuarioServicio,private historialVentaService:  HistorialVentaService
+              private usuarioServicio: UsuarioServicio,private historialVentaService:  HistorialVentaService,private router: Router
       ) { }
   ngOnInit(): void {
     console.log("xd?")
-    //Carga el precio Total que se muestra al lado del icono, específicamente lo carga ni bien inicia el componente
-    //Resuelve el error de que siempre inicie con 00.00
+
     this.msj.receiveSignal().subscribe(
       () => {
-      // tslint:disable-next-line: no-unused-expression
+
       this.enviarIconoCartTotal();
       },
       
     );
-    /*this.msg.recibirSeñal().subscribe(
-      () => {
-      // tslint:disable-next-line: no-unused-expression
-      this.enviarHistorial();
-      },
-      
-    );*/
+  
     this.id=this.dashboardService.idPorEntregar;
     this.usuarioLogeado=this.usuarioServicio.usuarioLogeado;
     this.logged=this.usuarioServicio.seLogeoUsuario;
@@ -87,7 +83,6 @@ export class CartComponent implements OnInit {
     );
 
   }
-
   // tslint:disable-next-line: typedef
   addProductToCart(item: CartItem){
     let productExists = false;
@@ -98,7 +93,6 @@ export class CartComponent implements OnInit {
         break;
       }
     }
-
     if (!productExists){
       this.cartItems.push({
         id: item.id,
@@ -116,7 +110,6 @@ export class CartComponent implements OnInit {
       this.msj.enviarDatos_icono(this.cartTotal);
     });
   }
-
   removeProductTocart( lista: CartItem[], item: CartItem){
     for(const i in lista){
       if(lista[i].nombre === item.nombre){
@@ -127,54 +120,47 @@ export class CartComponent implements OnInit {
       }
     }
   }
-
   enviarLista(){
     if (this.cartItems.length != 0){
       //tslint:disable-next-line: forin
       
       this.msj.enviarDatos_shoppingcart(this.cartItems);
-      let fecha=new Date();
-      let newFecha=this.datePipe.transform(fecha, 'dd-MM-yyyy');
-      let hora=this.datePipe.transform(fecha, 'shortTime');
-      let direccion=this.usuarioServicio.usuarioLogeado[7];
+      const fecha=new Date();
+      const newFecha=this.datePipe.transform(fecha, 'dd-MM-yyyy');
+      const hora=this.datePipe.transform(fecha, 'shortTime');
+      const direccion=this.usuarioServicio.usuarioLogeado[7];
       this.id=this.dashboardService.idPorEntregar;
       this.dashboardService.idPorEntregar+=1;
       this.cartTotal=Number(this.cartTotal.toFixed(2));
       if(newFecha != null && hora!=null){
         const pedidoData=new PedidoData(0,this.cartTotal,newFecha.toString(),hora.toString(),direccion.toString());
-        this.dashboardService.lstPedidos.unshift(pedidoData);
-
+        
+        
         console.log(Object.values(pedidoData));
         this.historialVentaService.guardarPedido(pedidoData).subscribe(data =>{
           console.log("pedido con exito");
       
-      
 
+        this.dashboardService.lstPedidos=this.historialVentaService.lstEntregados;
     });
-
-
-
 
         console.log("Mensaje enviado "+pedidoData.total);
       }else{
-        console.log("xdn't")
+        console.log("")
       }       
       
     } else {
-      console.log("xd")
+      console.log("")
     }
     
   }
-
   vaciarCarrito(){
     this.cartItems = [];
   }
-
   enviarIconoCartTotal(){
     this.msj.enviarDatos_icono(this.cartTotal);
     console.log("El total del Carrito es: " + this.cartTotal)
   }
-  
   enviarHistorial(){
     console.log("Se envía el historial")
     //this.msg.enviarHistorial(this.cartItems_historial);
@@ -183,32 +169,23 @@ export class CartComponent implements OnInit {
     //Envía la señal para que el historial se cargue
     //this.msg.enviarSeñal();
     if(this.cartItems.length != 0){
-      this.showConfirm();
-    } else {
-      console.log("No seas sapo")
-    }
-  }
-
-  swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: 'btn btn-success',
-      
-    },
-    buttonsStyling: false
-  })
-  showConfirm(){
-    this.swalWithBootstrapButtons.fire({
-      title: 'Pedido en camino',
-      icon: "success",
-      showConfirmButton: true,
-      confirmButtonText: "De acuerdo",
-      width: 600,
-      padding: '3em',      
-    })
     this.cartTotal=0;
     this.cartItems=[];
     this.enviarIconoCartTotal();
+    this.router.navigateByUrl('/tarjetaCredito');
+    this.cerrarModal();  
+
+    } else {
+      console.log("")
+    }
+
   }
+  
+  cerrarModal() {
+    jQuery('#carrito').modal('hide');
+  }
+
 }
+
 
 

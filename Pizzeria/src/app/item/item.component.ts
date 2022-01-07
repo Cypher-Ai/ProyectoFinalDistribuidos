@@ -6,7 +6,7 @@ import { CartItem } from '../models/cart-item';
 //Texto de alerta
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { UsuarioServicio } from '../usuario.service';
+import { UsuarioServicio } from '../servicios/usuario.service';
 
 @Component({
   selector: 'app-item',

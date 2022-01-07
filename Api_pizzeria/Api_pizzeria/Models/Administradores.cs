@@ -5,8 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Api_pizzeria.Models
-{
+namespace Api_pizzeria.Models { 
     public class Administradores
     {
         [Key]
@@ -36,7 +35,5 @@ namespace Api_pizzeria.Models
         [Required]
         [Column(TypeName = "varchar(20)")]
         public string Logeado { get; set; }
-
-
     }
 }

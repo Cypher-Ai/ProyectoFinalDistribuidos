@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Api_pizzeria.Models
 {
@@ -11,7 +10,6 @@ namespace Api_pizzeria.Models
     {
         [Key]
         public int Id { get; set; }
-
 
         [Required]
         [Column(TypeName="varchar(100)")]
@@ -47,7 +45,6 @@ namespace Api_pizzeria.Models
         [Required]
         [Column(TypeName = "varchar(20)")]
         public string Contrasenia { get; set; }
-
 
     }
 }

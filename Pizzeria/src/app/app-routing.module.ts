@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AccountInfoComponent } from './account-info/account-info.component';
-import { CartComponent } from './cart/cart.component';
+import { TarjetaCreditoComponent } from './componentes/tarjetas/tarjeta-credito/tarjeta-credito.component';
 import { TarjetasComponent } from './componentes/tarjetas/tarjetas.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { DefaultComponent } from './layouts/default/default.component';
@@ -11,9 +11,11 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { PostsComponent } from './modules/posts/posts.component';
 import { NosotrosComponent } from './nosotros/nosotros.component';
 
-
-
 const routes: Routes = [
+  {
+    path: 'tarjetaCredito',
+    component: TarjetasComponent
+  },
   {
     path: '',
     component: ItemListComponent
@@ -41,10 +43,6 @@ const routes: Routes = [
     path: 'locales',
     component: LocalesComponent
   },
-  //{
-  //  path: 'cart',
-  //  component: CartComponent
-  //},
   {
     path: 'account',
     component: AccountInfoComponent

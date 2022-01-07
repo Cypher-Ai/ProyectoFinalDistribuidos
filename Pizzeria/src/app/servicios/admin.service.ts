@@ -1,7 +1,8 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 
-import { Admin } from "./admin.model";
+import { Admin } from "../modelos/admin.model";
 
 @Injectable({
     providedIn: 'root'
@@ -9,8 +10,10 @@ import { Admin } from "./admin.model";
  export class AdminServicio {
     private myAppUrl='https://localhost:44305/';
     private myApiUrl='api/Administradores/';
-    public seLogeoAdmin!:boolean;
+   
     constructor(private http: HttpClient){}
+
+    public seLogeoAdmin!:boolean;
     public listaRegistrados: Admin[];
     public adminLogeado:any[];
     adminsRegistrados(){
@@ -20,6 +23,9 @@ import { Admin } from "./admin.model";
        }
      )
    }
+   adminLog(correo:string, contrasenia:string): Observable<Admin>{
 
+    return this.http.get<Admin>(this.myAppUrl+this.myApiUrl+"login/" + correo+"/"+contrasenia);
+   }
 }
   

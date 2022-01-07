@@ -14,12 +14,12 @@ namespace Api_pizzeria
 
         }  
         public DbSet<LogUsuario> LogUsuario { get; set; }
+
         public DbSet<Administradores> Administradores { get; set; }
 
         public DbSet<HistorialVenta> HistorialVenta { get; set; }
 
         public DbSet<TarjetaCredito> TarjetasCredito { get; set; }
-
 
     }
 

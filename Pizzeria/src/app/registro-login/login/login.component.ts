@@ -4,13 +4,13 @@ import Swal from 'sweetalert2';
 
 import { CartService } from 'src/app/cart-item/cart.service';
 import { Router } from '@angular/router';
-import { UsuarioServicio } from 'src/app/usuario.service';
-import { Usuario } from 'src/app/usuario.model';
-import { Admin } from 'src/app/admin.model';
-import { AdminServicio } from 'src/app/admin.service';
+import { UsuarioServicio } from 'src/app/servicios/usuario.service';
+import { Usuario } from 'src/app/modelos/usuario.model';
+import { Admin } from 'src/app/modelos/admin.model';
+import { AdminServicio } from 'src/app/servicios/admin.service';
+import { CuentaAdmin } from 'src/app/modelos/cuentaAdminAuth.model';
+
 declare var jQuery: any;
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -24,23 +24,15 @@ export class LoginComponent implements OnInit {
 
   seLogeoUsuario!: boolean;
   seLogeoAdmin!: boolean;
-  logAError!: boolean;
-  logUError!: boolean;
-  logContraseniaIncorreta!: boolean;
-
-
-
+  //para prueba para prueba 
+  loginErrado:boolean=false;
   
   //necesario para extraer usuario de la base de datos
-  private listaARegistrados:Admin[];
-  private listaURegistrados:Usuario[];
   private usuario: any[];
   private admin: any[];
 
-
   constructor(
     private formBuilder: FormBuilder,
-  
     private router: Router,
     private msj: CartService,
     private usuarioServicio: UsuarioServicio, private adminServicio: AdminServicio
@@ -53,11 +45,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.usuarioServicio.usuariosRegistrados();
     this.adminServicio.adminsRegistrados();
+    
   }
-
   //metodo para marcar los errores en el html
   get f() {
-
     return this.formLogin.controls;
   }
   public onSubmit() {
@@ -74,81 +65,45 @@ export class LoginComponent implements OnInit {
     this.correoLoginInput = this.formLogin.get('correo')?.value;
     this.contraseniaLoginInput = this.formLogin.get('contrasenia')?.value;
   }
-
-  //verificacion del login
-  login() {
-    this.obtenerDatosForm();
-
-    this.usuarioServicio.usuariosRegistrados();
-
-    this.listaURegistrados=Object.values(this.usuarioServicio.listaRegistrados);
-
-    this.adminServicio.adminsRegistrados();
-
-    this.listaARegistrados=Object.values(this.adminServicio.listaRegistrados);
-
-    if (this.formLogin.valid) {
-      
-      for (let i = 0; i < this.listaURegistrados.length; i++) {
-        this.usuario = Object.values(this.usuarioServicio.listaRegistrados[i]);
-        if (
-          this.correoLoginInput === this.usuario[5] &&
-          this.contraseniaLoginInput === this.usuario[8]
-        ) {
-          this.seLogeoUsuario=true;
-          break;
-        } else if (
-          this.contraseniaLoginInput !== this.usuario[8] &&
-          this.correoLoginInput === this.usuario[5]
-        ) {
-          this.logContraseniaIncorreta=true;
-          break;
-        }else{
-          this.logUError=true;
-        }
-        
-      }
-      
-
-      for (let i = 0; i < this.listaARegistrados.length; i++) {
-        this.admin = Object.values(this.adminServicio.listaRegistrados[i]);
-        if (
-          this.correoLoginInput === this.admin[4] &&
-          this.contraseniaLoginInput === this.admin[5]
-        ) {
-          this.seLogeoAdmin=true;
-          break;
-        } else if (
-          this.contraseniaLoginInput !== this.admin[5] &&
-          this.correoLoginInput === this.admin[4]
-        ) {
-          this.logContraseniaIncorreta=true;
   
-          break;
-        } else{
-          this.logAError=true;
-          break;
-        }
+  login(){
+    if (this.formLogin.valid){
+    this.obtenerDatosForm();
+    this.usuarioServicio.usuarioLog(this.correoLoginInput , this.contraseniaLoginInput).subscribe((usuarioApi: Usuario)=>{
+      this.usuario = Object.values(usuarioApi);
+      this.seLogeoUsuario=true;
+      this.loginUserCorrecto();
+      this.limpiarFom();
+      this.cerrarModal();
+    }, (err:any)=>{
+      if(err.message.includes("400")){ 
+        this.logContraseñaIncorreta();
+      }else {
+        this.loginErrado=true;
       }
-      if(this.seLogeoAdmin){
+    });
+    if(this.loginErrado==false){
+      this.adminServicio.adminLog(this.correoLoginInput , this.contraseniaLoginInput).subscribe((adminApi:Admin)=>{
+        this.admin = Object.values(adminApi);
+        this.seLogeoAdmin=true;
         this.loginAdminCorrecto();
         this.limpiarFom();
         this.cerrarModal();
-      }else if(this.seLogeoUsuario){
-        this.loginUserCorrecto();
-        this.limpiarFom();
-        this.cerrarModal();
-      }else if(this.contraseniaLoginInput){
-        this.logContraseñaIncorreta();
-      }else if(this.logUError && this.logAError){
-        
-      }
+      }, (err:any)=>{
+        if(err.message.includes("400")){ 
+          this.logContraseñaIncorreta();
+        }else {
+          this.loginError();
+        }
+      });
 
-    } else {
-      this.loginVacio();
+    }else{
+      this.loginError();
     }
+  }else{
+    this.loginVacio();
   }
-
+  }
   //mensajes modales :3
   private loginUserCorrecto() {
     Swal.fire(
@@ -164,8 +119,6 @@ export class LoginComponent implements OnInit {
       this.msj.enviarDatos_Eliminarlista();
     });
   }
-
-  
   private loginAdminCorrecto() {
     Swal.fire(
       '(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ \nBienvenido ' + this.admin[1],

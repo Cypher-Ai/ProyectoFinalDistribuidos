@@ -1,20 +1,20 @@
 ﻿using Api_pizzeria.dto;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Api_pizzeria.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/cuentaAdmin")]
     [ApiController]
+   
     public class cuentaAdmin : ControllerBase
     {
         private readonly AplicationDbContext context;
@@ -24,21 +24,35 @@ namespace Api_pizzeria.Controllers
             this.context = context;
             this.configuration = configuration;
         }
-        [HttpPost("login")]
-        public async Task<ActionResult<RespuestaAutentificacion>> Login(CredencialAdmin credencialAdmin)
+   [HttpPost("auth")]
+        public async Task<ActionResult<RespuestaAutentificacion>> Login (CredencialAdmin credencialAdmin)
         {
-            var resultado = true;
+            var resultado = false;
+            
+            var administrador = await context.Administradores.FirstOrDefaultAsync(x => x.Correo.Equals(credencialAdmin.Correo));
+            
+            if (administrador==null)
+            {
+                resultado = false;
+            }
+            else if (administrador.Contrasenia == credencialAdmin.Contrasenia)
+            {
+                resultado = true;
+            }
+            
+
             if (resultado)
             {
-                return await ConstruirToken(credencialAdmin);
+                return ConstruirToken(credencialAdmin);
             }
             else
             {
                 return BadRequest("Login incorrecto");
             }
+
         }
 
-        private async Task<RespuestaAutentificacion> ConstruirToken(CredencialAdmin credencialAdmin)
+        private RespuestaAutentificacion ConstruirToken([FromBody] CredencialAdmin credencialAdmin)
         {
             var claims = new List<Claim>()
             {
